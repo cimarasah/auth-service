@@ -1,0 +1,55 @@
+server:
+  port: 8082
+
+management:
+  security:
+    enabled: false
+
+spring:
+  application:
+    name: auth-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/db_user?useSSL=false
+    username: root
+    password: 12345
+    driver-class-name: oracle.jdbc.OracleDriver
+  jpa:
+    database-platform: org.hibernate.dialect.Oracle10gDialect
+    hibernate:
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+      show-sql: true
+    properties:
+      hibernate:
+        type: trace
+        dialect: org.hibernate.dialect.Oracle10gDialect
+  redis:
+    database: 2
+    host: localhost
+    port: 8085
+    ssl: false
+    timeout: 300
+    Pool:
+      maxIdle: 100
+      minIdle: 0
+      maxActive: 150
+
+security:
+  jwt:
+    header: Authorization
+    expiresInHours: 24 ### 24 horas o tempo máximo de validade do token
+    inactiveInMinutes: 15 ### 15 minutos de sessão inativa
+    secret: teste
+    name: auth-service
+    type: bearer
+    keyStore: classpath:key/jwe_keystore.jks
+    keyStorePassword: 'sw87FDHaV89A8nLd'
+    privateKeyPassword: 'cpPas35j4NVPSyHJ'
+    alias: cimarasah
+    encrypted: false
+  oauth2:
+    resource:
+      filter-order: 3
+
+eureka:
+  client:
+    enabled: false
